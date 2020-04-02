@@ -14,8 +14,7 @@ $db = $database->connect();
 $tweet = new Tweet($db);
 
 //get ID passed in URL if not passed then die() terminate current script
-$tweet->id = isset(htmlspecialchars($_GET['id']))? $_GET['id'] : die();
-//$tweet->id = isset($_GET['id'])?$_GET['id']: die();
+$tweet->id = isset($_GET['id'])?$_GET['id']: die();
 //call method to execute query
 $tweet->single_tweet();
 //assign result to php array and after convert result as php array into JSON array
