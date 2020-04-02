@@ -1,6 +1,6 @@
 <?php
 
-// as it is API using http to access nae to prepare headers
+// as it is API using http to access need to prepare headers
 header('Access-Control-Allow-Origin:*'); //everyone can have an access n tokens
 header('Content-Type: application/json');
 
