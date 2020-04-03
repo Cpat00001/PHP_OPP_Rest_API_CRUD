@@ -37,6 +37,7 @@ if($number > 0){
         );
         //Push tweet_item into tweet_arr array
         array_push($tweet_arr['data'],$tweet_item);
+        //array_push($tweet_arr,$tweet_item);
     }
     //change php array into JSON format
     echo json_encode($tweet_arr);

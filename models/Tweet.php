@@ -97,5 +97,55 @@ class Tweet{
         printf("Error: ", $stmt->error);
         return false;
     }
+    //UPDATE existing tweet
+    public function update_tweet(){
+        $query = "UPDATE " . $this->table. "
+        SET 
+            title = :title,
+            body = :body,
+            author = :author,
+            category_id = :category_id
+            WHERE 
+                id = :id";
+        //prepare statement && clean inseted data by user 
+        $stmt = $this->conn->prepare($query);
 
+        // clear users' input 
+        $this->title = htmlspecialchars(strip_tags($this->title));
+        $this->body = htmlspecialchars(strip_tags($this->body));
+        $this->author = htmlspecialchars(strip_tags($this->author));
+        $this->category_id = htmlspecialchars(strip_tags($this->category_id));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        //bindParams to SQL query
+        $stmt->bindParam(':title',$this->title);
+        $stmt->bindParam(':body',$this->body);
+        $stmt->bindParam(':author',$this->author);
+        $stmt->bindParam(':category_id', $this->category_id);
+        $stmt->bindParam(':id',$this->id);
+        echo "rzuc mi kategorie__".print_r($stmt->bindParam(':category_id',$this->category_id));
+
+        if($stmt->execute()){
+            return true;
+        }
+        //print error 
+        printf("Error: ", $stmt->error);
+        return false;
+
+    }
+    // DELETE tweet
+    public function delete_tweet(){
+        $query = "DELETE FROM " . $this->table . "
+                    WHERE id = :id";
+        //clean input
+        $stmt = $this->conn->prepare($query);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        //bind params
+        $stmt->bindParam(':id',$this->id);
+        //execute query
+        if($stmt->execute()){
+            return true;
+        }
+        printf("Error: ", $stmt->error);
+        return false;
+    }
 }
